@@ -10,8 +10,7 @@ import java.lang.UnsupportedOperationException;
  */
 
 public class UndoableBag<E> extends ArrayBag<E> {
-    private StackInterface<Action<E>> undoStack;
-    private StackInterface<Action<E>> redoStack;
+    // TODO Create two stack reference variables called undoStack and redoStack
 
     /**
      * Creates an empty bag with default capacity.
@@ -34,14 +33,7 @@ public class UndoableBag<E> extends ArrayBag<E> {
         // use ArrayBag add method
         boolean result = super.add(newEntry);
 
-        // If it worked, update stacks
-        if (result) {
-            redoStack.clear();
-
-            // keep track of insertion for future undo operations
-            Action<E> inserted = new Action<E>('i', newEntry);
-            undoStack.push(inserted);
-        }
+        // TODO keep track of added entry for undo operations
 
         return result;
     }
@@ -56,14 +48,7 @@ public class UndoableBag<E> extends ArrayBag<E> {
         // Call ArrayBag remove method
         E removedItem = super.remove();
 
-        // If it worked, update stacks
-        if (removedItem != null) {
-            redoStack.clear();
-
-            // keep track of removal for future undo operations
-            Action<E> removed = new Action<E>('r', removedItem);
-            undoStack.push(removed);
-        }
+        // TODO keep track of the item removed for later undo operations
 
         return removedItem;
     }
@@ -78,13 +63,7 @@ public class UndoableBag<E> extends ArrayBag<E> {
         // Call ArrayBag remove method
         boolean result = super.remove(anEntry);
 
-        // If it worked, update stacks
-        if (result) {
-            redoStack.clear();
-
-            Action<E> removed = new Action<E>('r', anEntry);
-            undoStack.push(removed);
-        }
+        // TODO keep track of the item removed for later undo operations
 
         return result;
     }
@@ -104,23 +83,9 @@ public class UndoableBag<E> extends ArrayBag<E> {
      * @return True if the undo was successful, or false if there was nothing to undo.
      */
     public boolean undo() {
-        if (undoStack.isEmpty()) {
-            return false;
-        }
-        Action<E> operation = undoStack.pop();
-        // keep track of undone operations for future redo operations
-        redoStack.push(operation);
+        // TODO implement the undo method (including fixing the return value)
 
-        // the opposite operation should be performed
-        switch (operation.getAction()) {
-            case 'i':
-                return super.remove(operation.getData());
-            case 'r':
-                return super.add(operation.getData());
-            default:
-                // this would be a weird error case
-                return false;
-        }
+        return false;
     }
 
     /**
@@ -128,24 +93,9 @@ public class UndoableBag<E> extends ArrayBag<E> {
      * @return True if the redo was successful, or false if there was nothing to redo.
      */
     public boolean redo() {
-        if (redoStack.isEmpty()) {
-            return false;
-        }
-        Action<E> operation = redoStack.pop();
-        // keep track of redone operations for future undo operations
-        undoStack.push(operation);
+        // TODO implement the redo method (including fixing the return value)
 
-        // the same operation should be performed
-        switch (operation.getAction()) {
-            case 'i':
-                return super.add(operation.getData());
-            case 'r':
-                return super.remove(operation.getData());
-            default:
-                // this would be a weird error case
-                return false;
-        }
+        return false;
     }
 
 }
-
