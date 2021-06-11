@@ -1,4 +1,4 @@
-﻿# CS 445 Recitation 4: Stacks
+# CS 445 Recitation 4: Stacks
 
 ## Introduction
 
@@ -144,4 +144,4 @@ In this exercise, you wrote implementation code for a Bag data structure with
 undo and redo capabilities by interacting with the Stack ADT. You also practiced
 using the methods and LIFO behavior of Stacks for maintaining a history of
 actions on `UndoableBag`.
-
+>>>>
