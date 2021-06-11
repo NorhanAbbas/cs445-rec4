@@ -2,7 +2,7 @@ package cs445.rec4;
 
 import java.lang.UnsupportedOperationException;
 
-/**
+/*****
  * A class that implements the Bag ADT with undo/redo
  * capabilities by extending ArrayBag
  * @author Brian Nixon
